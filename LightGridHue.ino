@@ -1,4 +1,4 @@
-// Hack Pittsburgh Charactor Test program
+// Hack Pittsburgh Ligt Grid Hue test program
 
 #include <stdint.h>
 #include <SoftwareSerial.h>
@@ -33,7 +33,7 @@ void initializeColors() {
       blue = MAX_COLOR-green;
     }
 
-    int color = red << 8 | green << 4 | blue;
+    int color = blue << 8 | green << 4 | red;
     hueColors[hue] = color;
   }
 }
