@@ -1,6 +1,7 @@
 // font.cpp contains the column pattern for a 3 x 5 matrix defining the columns
 
 #include <avr/pgmspace.h>
+#include "fonts.h"
 
 #define FONT_3_X_5  3
 #define FONT_4_X_6  6
