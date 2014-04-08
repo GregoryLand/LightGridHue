@@ -91,23 +91,23 @@ void drawEntireScreen()
 }
 
 // Meh looks pretty this is art not science....
-boolean doSingleBubbleSortPass()
+uint8_t doSingleBubbleSortPass()
 {
-  boolean didWeSwap = false;
+  uint8_t numberOfSwaps = 0;
   // Walk though the array and check each pair
   for( uint8_t x = 0; x < NUMBER_OF_LEDS - 1; x++ )
   { 
     // Test if value on right is bigger if not swap
     if( randomArrayOfNonrepeatingNumbers[x] > randomArrayOfNonrepeatingNumbers[x+1] )
     {
-      didWeSwap = true;
+      numberOfSwaps++;
       // Swap the values
       uint8_t temp = randomArrayOfNonrepeatingNumbers[x+1];
       randomArrayOfNonrepeatingNumbers[x+1] = randomArrayOfNonrepeatingNumbers[x];
       randomArrayOfNonrepeatingNumbers[x] = temp;
     }
   }
-  return didWeSwap;
+  return numberOfSwaps;
 }
 
 void setup() 
@@ -138,14 +138,20 @@ void loop()
 
   // Draw the random array 
   drawEntireScreen();
+  delay(1000);
   
   // Start Sort Algorthim
   for( uint8_t x = 0; x < NUMBER_OF_LEDS; x++ )
   {
-    delay(1000);
-    boolean didWeSortOnLastPass = doSingleBubbleSortPass();
+    // Do a pass and get number of swaps done
+    uint8_t numberOfSwaps = doSingleBubbleSortPass();
+    // Redraw the screen
     drawEntireScreen();
-    if( didWeSortOnLastPass == false ) break;
+    // If no swaps end the sort
+    if( numberOfSwaps == 0 ) break;
+    // Based on number of swaps we have done change the delay amount.
+    // The more sorted the array the faster the sort goes.
+    delay(numberOfSwaps * 20);
   }
  
   // Pause Before Reseting
